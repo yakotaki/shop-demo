@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ t.login_title }}{% endblock %}
+
+{% block content %}
+<h1 class="h4 mb-3">{{ t.login_heading }}</h1>
+<p class="small text-muted">
+    {{ t.login_intro }}
+</p>
+
+<form method="post" style="max-width: 320px;">
+    <div class="mb-3">
+        <label for="username" class="form-label small">{{ t.login_name_label }}</label>
+        <input type="text" id="username" name="username"
+               class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">{{ t.login_btn }}</button>
+</form>
+{% endblock %}

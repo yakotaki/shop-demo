@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{{ t.checkout_title }}{% endblock %}
+
+{% block content %}
+<h1 class="h4 mb-3">{{ t.checkout_heading }}</h1>
+
+<div class="row g-4">
+    <div class="col-md-7">
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label small" for="name">{{ t.checkout_fullname_label }}</label>
+                <input type="text" class="form-control" id="name" name="name"
+                       placeholder="{{ t.checkout_fullname_placeholder }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label small" for="email">{{ t.checkout_email_label }}</label>
+                <input type="email" class="form-control" id="email" name="email"
+                       placeholder="{{ t.checkout_email_placeholder }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label small" for="address">{{ t.checkout_address_label }}</label>
+                <textarea class="form-control" id="address" name="address" rows="3"
+                          placeholder="{{ t.checkout_address_placeholder }}" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label small" for="note">{{ t.checkout_note_label }}</label>
+                <textarea class="form-control" id="note" name="note" rows="2"
+                          placeholder="{{ t.checkout_note_placeholder }}"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                {{ t.checkout_submit_btn }}
+            </button>
+        </form>
+    </div>
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                {{ t.checkout_summary_title }}
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-2 small">
+                    {% for line in items %}
+                    <li class="d-flex justify-content-between mb-1">
+                        <span>
+                            {{ line.product.name if lang == 'en' else line.product.name_zh }} × {{ line.qty }}
+                        </span>
+                        <span>{{ line.line_total | round(2) }} {{ line.product.currency }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <strong>{{ t.cart_total_label }}</strong>
+                    <strong>{{ total | round(2) }} {{ items[0].product.currency }}</strong>
+                </div>
+                <p class="small text-muted mt-3 mb-0">
+                    {{ t.checkout_summary_demo_note }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

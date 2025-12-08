@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ t.cart_title }}{% endblock %}
+
+{% block content %}
+<h1 class="h4 mb-3">{{ t.cart_heading }}</h1>
+
+{% if not items %}
+    <p>{{ t.cart_empty }}</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary btn-sm">{{ t.cart_continue }}</a>
+{% else %}
+    <div class="table-responsive mb-3">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>{{ t.cart_th_product }}</th>
+                    <th style="width: 120px;">{{ t.cart_th_qty }}</th>
+                    <th>{{ t.cart_th_price }}</th>
+                    <th>{{ t.cart_th_line_total }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for line in items %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img
+                                src="{{ url_for('static', filename='img/' ~ line.product.image) }}"
+                                alt="{{ line.product.name if lang == 'en' else line.product.name_zh }}"
+                                style="width: 60px; height: 60px; object-fit: cover;"
+                                class="me-2 rounded"
+                            >
+                            <div>
+                                <div>{{ line.product.name if lang == 'en' else line.product.name_zh }}</div>
+                                <div class="small text-muted">
+                                    {{ line.product.short if lang == 'en' else line.product.short_zh }}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('cart_update', pid=line.product.id) }}" method="post"
+                              class="d-flex align-items-center">
+                            <input type="number" name="qty" min="0"
+                                   value="{{ line.qty }}"
+                                   class="form-control form-control-sm me-2"
+                                   style="width: 80px;">
+                            <button class="btn btn-outline-secondary btn-sm" type="submit">
+                                {{ t.cart_update_btn }}
+                            </button>
+                        </form>
+                        <div class="small text-muted mt-1">
+                            {{ t.cart_update_hint }}
+                        </div>
+                    </td>
+                    <td>{{ line.product.price | round(2) }} {{ line.product.currency }}</td>
+                    <td>{{ line.line_total | round(2) }} {{ line.product.currency }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+        <form action="{{ url_for('cart_clear') }}" method="post" class="mb-2">
+            <button type="submit" class="btn btn-outline-danger btn-sm">{{ t.cart_clear_btn }}</button>
+        </form>
+        <div class="fs-5 fw-semibold">
+            {{ t.cart_total_label }} {{ total | round(2) }} {{ items[0].product.currency }}
+        </div>
+    </div>
+
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+            {{ t.cart_continue }}
+        </a>
+        <a href="{{ url_for('checkout') }}" class="btn btn-primary">
+            {{ t.cart_checkout_btn }}
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

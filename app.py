@@ -1,10 +1,19 @@
+import os
+import json
 from flask import (
     Flask, render_template, request, redirect,
-    url_for, session, flash
+    url_for, session, flash, jsonify
 )
+from openai import OpenAI
 
 app = Flask(__name__)
 app.secret_key = "change_this_to_a_random_secret_key"
+
+# OpenAI client for AI advisor (requires OPENAI_API_KEY in environment)
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+# Feature flag: you can turn this off for clients without AI
+ENABLE_AI_ADVISOR = True
 
 # ---------- TRANSLATIONS ----------
 
@@ -481,6 +490,192 @@ def account():
         }
     ]
     return render_template("account.html", user=user, orders=demo_orders)
+
+@app.route("/api/ai-product-advisor", methods=["POST"])
+def api_ai_product_advisor():
+    """
+    AI product recommender / bundle advisor.
+
+    Expects JSON:
+    {
+      "query": "I run a small workshop, need headset for calls...",
+      "lang": "en" | "zh"
+    }
+
+    Returns JSON:
+    {
+      "recommendations": [
+        {
+          "product_id": 1,
+          "product_name": "...",
+          "product_name_zh": "...",
+          "price": 59.9,
+          "currency": "USD",
+          "reason": "...",
+          "url": "/product/wireless-headphones"
+        },
+        ...
+      ]
+    }
+    """
+    if not ENABLE_AI_ADVISOR:
+        return jsonify({"error": "AI advisor is disabled"}), 403
+
+    if os.environ.get("OPENAI_API_KEY") is None:
+        return jsonify({"error": "OPENAI_API_KEY is not set on the server"}), 500
+
+    data = request.get_json(silent=True) or {}
+    query = (data.get("query") or "").strip()
+    lang = (data.get("lang") or get_lang() or "en").lower()
+    lang = "zh" if lang in ("zh", "cn", "zh-cn") else "en"
+
+    if not query:
+        return jsonify({"error": "Missing query"}), 400
+
+    products_text = build_products_prompt(lang)
+
+    if lang == "zh":
+        user_prompt = f"""
+用户描述的使用场景如下：
+{query}
+
+下面是可选产品列表（每一行一个产品）：
+{products_text}
+
+请你扮演一名熟悉出口电商的产品顾问，根据用户场景从列表中推荐 2–3 款产品（可以考虑凑成一个简单“组合”）。
+
+要求：
+- 只在上面列表中的产品里选择；
+- 对每个推荐说明简短理由（不超过 3 句话）；
+- 尝试覆盖不同用途或价位（如果合适）。
+
+请严格按照以下 JSON 格式返回（不要包含其它文字或解释）：
+{{
+  "recommendations": [
+    {{
+      "product_id": <int>,
+      "reason": "<Chinese explanation>"
+    }},
+    ...
+  ]
+}}
+"""
+    else:
+        user_prompt = f"""
+The buyer describes their situation as:
+{query}
+
+Here is the available product list (one per line):
+{products_text}
+
+You are an export-focused product advisor.
+Recommend 2–3 products (possibly as a small bundle) from the list ABOVE only.
+
+Requirements:
+- Only pick products that actually exist in the list.
+- For each recommendation, provide a short reason (max 3 sentences).
+- Try to cover different use cases or price points if it makes sense.
+
+Return STRICT JSON ONLY, with no extra commentary, using this exact format:
+{{
+  "recommendations": [
+    {{
+      "product_id": <int>,
+      "reason": "<English explanation>"
+    }},
+    ...
+  ]
+}}
+"""
+
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "You are a helpful product advisor. "
+                "Always and only respond with valid JSON that can be parsed by a program."
+            )
+        },
+        {"role": "user", "content": user_prompt},
+    ]
+
+    try:
+        completion = client.chat.completions.create(
+            model="gpt-4.1-mini",  # adjust if you prefer another model
+            messages=messages,
+            max_tokens=500,
+            temperature=0.4,
+        )
+        raw = completion.choices[0].message.content
+
+        try:
+            parsed = json.loads(raw)
+        except Exception:
+            # Fallback: not proper JSON, wrap entire reply into a single recommendation
+            parsed = {
+                "recommendations": [
+                    {"product_id": PRODUCTS[0]["id"], "reason": raw.strip()}
+                ]
+            }
+
+        recs = parsed.get("recommendations", [])
+        enriched = []
+
+        for rec in recs:
+            pid = rec.get("product_id")
+            if not isinstance(pid, int):
+                continue
+            product = find_product_by_id(pid)
+            if not product:
+                continue
+
+            enriched.append({
+                "product_id": pid,
+                "product_name": product["name"],
+                "product_name_zh": product["name_zh"],
+                "price": product["price"],
+                "currency": product["currency"],
+                "reason": rec.get("reason", ""),
+                "url": url_for("product_detail", slug=product["slug"])
+            })
+
+        if not enriched:
+            # If model output was useless, at least suggest top-1 product
+            p = PRODUCTS[0]
+            enriched.append({
+                "product_id": p["id"],
+                "product_name": p["name"],
+                "product_name_zh": p["name_zh"],
+                "price": p["price"],
+                "currency": p["currency"],
+                "reason": "AI could not parse a good recommendation, so we suggest starting from this popular demo product.",
+                "url": url_for("product_detail", slug=p["slug"])
+            })
+
+        return jsonify({"recommendations": enriched})
+
+    except Exception as e:
+        return jsonify({"error": "AI advisor request failed", "detail": str(e)}), 500
+
+
+def build_products_prompt(lang: str) -> str:
+    """
+    Build a compact text listing all products for the AI model.
+    """
+    lines = []
+    use_zh = (lang == "zh")
+    for p in PRODUCTS:
+        name = p["name_zh"] if use_zh else p["name"]
+        short = p["short_zh"] if use_zh else p["short"]
+        line = (
+            f"ID: {p['id']}, "
+            f"Name: {name}, "
+            f"Price: {p['price']} {p['currency']}, "
+            f"Short: {short}"
+        )
+        lines.append(line)
+    return "\n".join(lines)
+
 
 
 if __name__ == "__main__":

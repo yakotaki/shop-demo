@@ -1,0 +1,77 @@
+{% set advisor_title = "AI Product Advisor" if lang == "en" else "AI 商品推荐助手" %}
+{% set advisor_subtitle = (
+    "Describe your use case, we suggest 2–3 products."
+    if lang == "en"
+    else "简单描述您的使用场景，AI 会从示例商品中推荐 2–3 款。"
+) %}
+
+<div class="card border-0 shadow-sm mb-4" id="aiAdvisorCard">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <div class="text-uppercase small text-primary fw-semibold mb-1">
+          <i class="fa-solid fa-wand-magic-sparkles me-1"></i>
+          {{ advisor_title }}
+        </div>
+        <p class="small text-muted mb-0">{{ advisor_subtitle }}</p>
+      </div>
+      <span class="badge rounded-pill text-bg-light border d-none d-md-inline">
+        Demo
+      </span>
+    </div>
+
+    <form id="aiAdvisorForm" onsubmit="return SkyLaneAdvisor.ask();">
+      <div class="mb-2">
+        <label class="form-label small mb-1">
+          {% if lang == 'en' %}
+            What do you need these products for?
+          {% else %}
+            您主要想用这些商品做什么？
+          {% endif %}
+        </label>
+        <textarea
+          class="form-control form-control-sm"
+          rows="2"
+          id="aiAdvisorInput"
+          placeholder="
+{% if lang == 'en' -%}
+Example: I run a small home office and need headphones and a lamp for long video calls.
+{%- else -%}
+示例：我在家办公，需要耳机和台灯，用于长时间视频会议。
+{%- endif %}"
+        ></textarea>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <small id="aiAdvisorStatus" class="text-muted">
+          {% if lang == 'en' %}
+            The AI will only pick from the demo products in this shop.
+          {% else %}
+            AI 只会从当前示例商品中进行推荐。
+          {% endif %}
+        </small>
+        <button
+          type="submit"
+          class="btn btn-sm btn-primary rounded-pill px-3"
+          id="aiAdvisorButton"
+        >
+          <i class="fa-solid fa-wand-magic-sparkles me-1"></i>
+          {% if lang == 'en' %}Get suggestions{% else %}获取推荐{% endif %}
+        </button>
+      </div>
+    </form>
+
+    <div id="aiAdvisorResults" class="mt-2" style="display:none;">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/ai_product_advisor.js') }}"></script>
+<script>
+  if (window.SkyLaneAdvisor) {
+    SkyLaneAdvisor.init({
+      lang: "{{ 'zh' if lang == 'zh' else 'en' }}"
+    });
+  }
+</script>

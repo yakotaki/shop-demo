@@ -281,14 +281,10 @@ PRODUCTS = [
 
 # ---------- Helpers ----------
 
-def get_lang():
-    """Get language from ?lang=xx or session; default en."""
-    lang_param = request.args.get("lang")
-    if lang_param in TEXTS:
-        session["lang"] = lang_param
-    if "lang" not in session:
-        session["lang"] = "en"
-    return session["lang"]
+def get_lang(default="en"):
+    lang = request.args.get("lang", default)
+    return "zh" if lang and lang.lower() in ("zh", "cn", "zh-cn") else "en"
+
 
 
 def tr(key: str, **kwargs) -> str:

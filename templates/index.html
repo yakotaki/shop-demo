@@ -2,63 +2,381 @@
 
 {% block title %}{{ t.home_title }}{% endblock %}
 
+{% block extra_head %}
+<style>
+  .hero-panel{
+    background:
+      radial-gradient(1200px 600px at 20% 10%, rgba(13,110,253,.16), transparent 55%),
+      radial-gradient(900px 500px at 85% 20%, rgba(25,135,84,.14), transparent 55%),
+      linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,0));
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 1.25rem;
+  }
+  .hero-title{ font-weight: 800; letter-spacing: -0.02em; }
+  .hero-sub{ color: #4b5563; }
+  .pill-badge{ border: 1px solid rgba(0,0,0,.12); background: rgba(255,255,255,.8); }
+  .feature-card{ border: 1px solid rgba(0,0,0,.08); border-radius: 1rem; background: #fff; }
+  .feature-card .icon{
+    width: 40px; height: 40px; border-radius: 999px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(13,110,253,.10);
+  }
+  .step-card{ border: 1px solid rgba(0,0,0,.08); border-radius: 1rem; background: #fff; }
+  .soft-panel{ background: rgba(255,255,255,.92); border: 1px solid rgba(0,0,0,.08); border-radius: 1.25rem; }
+  .muted{ color: #6b7280; }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-8">
-        <h1 class="h4 mb-1">{{ t.home_heading }}</h1>
-        <p class="text-muted mb-0">
-            {{ t.home_tagline }}
-        </p>
-    </div>
-</div>
+<section class="hero-panel p-4 p-lg-5 mb-4">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7">
+      <div class="section-kicker mb-2">{{ t.home_hero_kicker }}</div>
+      <h1 class="display-6 hero-title mb-2">{{ t.home_hero_title }}</h1>
+      <p class="lead hero-sub mb-3">{{ t.home_hero_sub }}</p>
 
-<div class="row g-4">
-    <!-- AI Product Advisor column -->
-    <div class="col-12 col-lg-4">
-        {% include "_ai_product_advisor.html" %}
+      <div class="d-flex flex-wrap gap-2 align-items-center">
+        <a href="#products" class="btn btn-primary">{{ t.home_cta_browse }}</a>
+        <a href="#aiAdvisorCard" class="btn btn-outline-secondary">{{ t.home_cta_ai }}</a>
+        <a href="{{ url_for('cart_view') }}" class="btn btn-outline-dark">{{ t.home_cta_cart }}</a>
+      </div>
+
+      <div class="mt-3 d-flex flex-wrap gap-2">
+        <span class="badge rounded-pill text-bg-light pill-badge">{{ t.home_badge_mobile }}</span>
+        <span class="badge rounded-pill text-bg-light pill-badge">{{ t.home_badge_bilingual }}</span>
+        <span class="badge rounded-pill text-bg-light pill-badge">{{ t.home_badge_export }}</span>
+      </div>
     </div>
 
-    <!-- Products grid -->
-    <div class="col-12 col-lg-8">
-        <div class="row g-4" id="products">
-            {% for product in products %}
-            <div class="col-md-6 col-xl-4">
-                <div class="card h-100 shadow-sm">
-                    <img
-                        src="{{ url_for('static', filename='img/' ~ product.image) }}"
-                        class="card-img-top"
-                        alt="{{ product.name if lang == 'en' else product.name_zh }}"
-                        style="height: 200px; object-fit: cover;"
-                    >
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">
-                            {{ product.name if lang == 'en' else product.name_zh }}
-                        </h5>
-                        <p class="card-text small text-muted">
-                            {{ product.short if lang == 'en' else product.short_zh }}
-                        </p>
-                        <div class="mt-auto d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>{{ product.price | round(2) }} {{ product.currency }}</strong>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <a href="{{ url_for('product_detail', slug=product.slug) }}"
-                                   class="btn btn-outline-secondary btn-sm">
-                                    {{ t.home_btn_details }}
-                                </a>
-                                <form action="{{ url_for('add_to_cart', pid=product.id) }}" method="post">
-                                    <input type="hidden" name="qty" value="1">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        {{ t.home_btn_add }}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+    <div class="col-lg-5">
+      <div class="soft-panel p-3 p-lg-4">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <div>
+            <div class="fw-semibold">{{ t.home_quick_title }}</div>
+            <div class="small text-muted">{{ t.home_quick_sub }}</div>
+          </div>
+          <span class="badge text-bg-light border">{{ t.home_badge_demo }}</span>
         </div>
+
+        <div class="row g-2 small">
+          <div class="col-6">
+            <div class="p-2 bg-white border rounded-3 h-100">
+              <div class="fw-semibold">{{ t.home_quick_item1_title }}</div>
+              <div class="text-muted">{{ t.home_quick_item1_desc }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-2 bg-white border rounded-3 h-100">
+              <div class="fw-semibold">{{ t.home_quick_item2_title }}</div>
+              <div class="text-muted">{{ t.home_quick_item2_desc }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-2 bg-white border rounded-3 h-100">
+              <div class="fw-semibold">{{ t.home_quick_item3_title }}</div>
+              <div class="text-muted">{{ t.home_quick_item3_desc }}</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-2 bg-white border rounded-3 h-100">
+              <div class="fw-semibold">{{ t.home_quick_item4_title }}</div>
+              <div class="text-muted">{{ t.home_quick_item4_desc }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
+
+<div class="row g-4 mb-4">
+  <div class="col-12 col-lg-8">
+    <div class="mb-3">
+      <div class="section-kicker">{{ t.home_includes_kicker }}</div>
+      <h2 class="h5 section-title mb-1">{{ t.home_includes_title }}</h2>
+      <p class="small muted mb-0">{{ t.home_includes_sub }}</p>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="feature-card p-3 h-100 shadow-sm">
+          <div class="d-flex gap-3">
+            <div class="icon"><i class="fa-solid fa-language"></i></div>
+            <div>
+              <div class="fw-semibold">{{ t.home_feature1_title }}</div>
+              <div class="small text-muted">{{ t.home_feature1_desc }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="feature-card p-3 h-100 shadow-sm">
+          <div class="d-flex gap-3">
+            <div class="icon"><i class="fa-solid fa-tags"></i></div>
+            <div>
+              <div class="fw-semibold">{{ t.home_feature2_title }}</div>
+              <div class="small text-muted">{{ t.home_feature2_desc }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="feature-card p-3 h-100 shadow-sm">
+          <div class="d-flex gap-3">
+            <div class="icon"><i class="fa-solid fa-basket-shopping"></i></div>
+            <div>
+              <div class="fw-semibold">{{ t.home_feature3_title }}</div>
+              <div class="small text-muted">{{ t.home_feature3_desc }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="feature-card p-3 h-100 shadow-sm">
+          <div class="d-flex gap-3">
+            <div class="icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <div>
+              <div class="fw-semibold">{{ t.home_feature4_title }}</div>
+              <div class="small text-muted">{{ t.home_feature4_desc }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3 small text-muted">{{ t.home_note_under_features }}</div>
+  </div>
+
+  <div class="col-12 col-lg-4">
+    {% include "_ai_product_advisor.html" %}
+  </div>
 </div>
+
+<section class="mb-5">
+  <div class="section-kicker">{{ t.home_steps_kicker }}</div>
+  <h2 class="h5 section-title mb-3">{{ t.home_steps_title }}</h2>
+
+  <div class="row g-3">
+    <div class="col-md-6 col-lg-3">
+      <div class="step-card p-3 h-100 shadow-sm">
+        <div class="fw-semibold mb-1">1) {{ t.home_step1_title }}</div>
+        <div class="small text-muted">{{ t.home_step1_desc }}</div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="step-card p-3 h-100 shadow-sm">
+        <div class="fw-semibold mb-1">2) {{ t.home_step2_title }}</div>
+        <div class="small text-muted">{{ t.home_step2_desc }}</div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="step-card p-3 h-100 shadow-sm">
+        <div class="fw-semibold mb-1">3) {{ t.home_step3_title }}</div>
+        <div class="small text-muted">{{ t.home_step3_desc }}</div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="step-card p-3 h-100 shadow-sm">
+        <div class="fw-semibold mb-1">4) {{ t.home_step4_title }}</div>
+        <div class="small text-muted">{{ t.home_step4_desc }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-5">
+  <div class="soft-panel p-4 p-lg-5 shadow-sm">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="section-kicker">{{ t.home_service_kicker }}</div>
+        <h2 class="h5 section-title mb-2">{{ t.home_service_title }}</h2>
+        <p class="text-muted mb-0">{{ t.home_service_sub }}</p>
+      </div>
+      <div class="col-lg-7">
+        <ul class="mb-0">
+          <li class="mb-2">{{ t.home_service_b1 }}</li>
+          <li class="mb-2">{{ t.home_service_b2 }}</li>
+          <li class="mb-2">{{ t.home_service_b3 }}</li>
+          <li class="mb-0">{{ t.home_service_b4 }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-5">
+  <div class="d-flex justify-content-between align-items-end mb-3">
+    <div>
+      <div class="section-kicker">{{ t.home_featured_kicker }}</div>
+      <h2 class="h5 section-title mb-0">{{ t.home_featured_title }}</h2>
+    </div>
+    <a href="#products" class="small">{{ t.home_featured_link }}</a>
+  </div>
+
+  <div class="row g-4">
+    {% for product in products[:6] %}
+      <div class="col-md-6 col-xl-4">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="{{ url_for('static', filename='img/' ~ product.image) }}"
+            class="card-img-top"
+            alt="{{ product.name if lang == 'en' else product.name_zh }}"
+            style="height: 200px; object-fit: cover;"
+          >
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title mb-1">{{ product.name if lang == 'en' else product.name_zh }}</h5>
+            <p class="card-text small text-muted mb-3">{{ product.short if lang == 'en' else product.short_zh }}</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div><strong>{{ product.price | round(2) }} {{ product.currency }}</strong></div>
+              <div class="d-flex gap-2">
+                <a href="{{ url_for('product_detail', slug=product.slug) }}" class="btn btn-outline-secondary btn-sm">{{ t.home_btn_details }}</a>
+                <form action="{{ url_for('add_to_cart', pid=product.id) }}" method="post">
+                  <input type="hidden" name="qty" value="1">
+                  <button type="submit" class="btn btn-primary btn-sm">{{ t.home_btn_add }}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="products" class="mb-5">
+  <div class="d-flex justify-content-between align-items-end mb-3">
+    <div>
+      <div class="section-kicker">{{ t.home_all_kicker }}</div>
+      <h2 class="h5 section-title mb-0">{{ t.home_all_title }}</h2>
+    </div>
+    <div class="small text-muted">{{ t.home_all_hint }}</div>
+  </div>
+
+  <div class="row g-4">
+    {% for product in products %}
+      <div class="col-md-6 col-xl-3">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="{{ url_for('static', filename='img/' ~ product.image) }}"
+            class="card-img-top"
+            alt="{{ product.name if lang == 'en' else product.name_zh }}"
+            style="height: 180px; object-fit: cover;"
+          >
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title mb-1">{{ product.name if lang == 'en' else product.name_zh }}</h6>
+            <p class="card-text small text-muted mb-3">{{ product.short if lang == 'en' else product.short_zh }}</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <strong class="small">{{ product.price | round(2) }} {{ product.currency }}</strong>
+              <div class="d-flex gap-2">
+                <a href="{{ url_for('product_detail', slug=product.slug) }}" class="btn btn-outline-secondary btn-sm">{{ t.home_btn_details }}</a>
+                <form action="{{ url_for('add_to_cart', pid=product.id) }}" method="post">
+                  <input type="hidden" name="qty" value="1">
+                  <button type="submit" class="btn btn-primary btn-sm">{{ t.home_btn_add }}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="mb-5">
+  <div class="section-kicker">{{ t.home_social_kicker }}</div>
+  <h2 class="h5 section-title mb-3">{{ t.home_social_title }}</h2>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="p-3 bg-white border rounded-4 shadow-sm h-100">
+        <div class="small text-muted mb-2">{{ t.home_social_label1 }}</div>
+        <div class="fw-semibold">{{ t.home_social_quote1 }}</div>
+        <div class="small text-muted mt-2">{{ t.home_social_meta1 }}</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3 bg-white border rounded-4 shadow-sm h-100">
+        <div class="small text-muted mb-2">{{ t.home_social_label2 }}</div>
+        <div class="fw-semibold">{{ t.home_social_quote2 }}</div>
+        <div class="small text-muted mt-2">{{ t.home_social_meta2 }}</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3 bg-white border rounded-4 shadow-sm h-100">
+        <div class="small text-muted mb-2">{{ t.home_social_label3 }}</div>
+        <div class="fw-semibold">{{ t.home_social_quote3 }}</div>
+        <div class="small text-muted mt-2">{{ t.home_social_meta3 }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-5">
+  <div class="section-kicker">{{ t.home_faq_kicker }}</div>
+  <h2 class="h5 section-title mb-3">{{ t.home_faq_title }}</h2>
+
+  <div class="accordion" id="homeFaq">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="q1">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a1" aria-expanded="true" aria-controls="a1">
+          {{ t.home_faq_q1 }}
+        </button>
+      </h2>
+      <div id="a1" class="accordion-collapse collapse show" aria-labelledby="q1" data-bs-parent="#homeFaq">
+        <div class="accordion-body">{{ t.home_faq_a1 }}</div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="q2">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a2" aria-expanded="false" aria-controls="a2">
+          {{ t.home_faq_q2 }}
+        </button>
+      </h2>
+      <div id="a2" class="accordion-collapse collapse" aria-labelledby="q2" data-bs-parent="#homeFaq">
+        <div class="accordion-body">{{ t.home_faq_a2 }}</div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="q3">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a3" aria-expanded="false" aria-controls="a3">
+          {{ t.home_faq_q3 }}
+        </button>
+      </h2>
+      <div id="a3" class="accordion-collapse collapse" aria-labelledby="q3" data-bs-parent="#homeFaq">
+        <div class="accordion-body">{{ t.home_faq_a3 }}</div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="q4">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a4" aria-expanded="false" aria-controls="a4">
+          {{ t.home_faq_q4 }}
+        </button>
+      </h2>
+      <div id="a4" class="accordion-collapse collapse" aria-labelledby="q4" data-bs-parent="#homeFaq">
+        <div class="accordion-body">{{ t.home_faq_a4 }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-2">
+  <div class="soft-panel p-4 p-lg-5 shadow-sm">
+    <div class="row align-items-center g-3">
+      <div class="col-lg-8">
+        <div class="section-kicker">{{ t.home_cta2_kicker }}</div>
+        <h2 class="h5 section-title mb-1">{{ t.home_cta2_title }}</h2>
+        <p class="text-muted mb-0">{{ t.home_cta2_desc }}</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="#products" class="btn btn-primary">{{ t.home_cta2_btn }}</a>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

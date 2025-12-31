@@ -42,6 +42,98 @@ TEXTS = {
         "home_btn_details": "Details",
         "home_btn_add": "Add",
 
+        # Homepage expansion (more front-page content)
+        "home_hero_kicker": "B2B / Export storefront template",
+        "home_hero_title": "Demo Export Storefront",
+        "home_hero_sub": "A bilingual, buyer-friendly demo shop that shows how products can be presented to international customers.",
+        "home_cta_browse": "Browse products",
+        "home_cta_ai": "Ask AI advisor",
+        "home_cta_cart": "View basket",
+        "home_badge_mobile": "Mobile-ready",
+        "home_badge_bilingual": "EN/CN",
+        "home_badge_export": "Export-friendly",
+        "home_badge_demo": "Demo",
+
+        "home_quick_title": "At a glance",
+        "home_quick_sub": "Key highlights buyers notice first.",
+        "home_quick_item1_title": "Clear listings",
+        "home_quick_item1_desc": "Images, short benefits, and price display.",
+        "home_quick_item2_title": "Basket flow",
+        "home_quick_item2_desc": "Add, update quantities, and checkout request.",
+        "home_quick_item3_title": "Account area",
+        "home_quick_item3_desc": "Demo login and order history placeholders.",
+        "home_quick_item4_title": "AI advisor (optional)",
+        "home_quick_item4_desc": "Recommends 2–3 items from your catalog.",
+
+        "home_includes_kicker": "Homepage content",
+        "home_includes_title": "What this demo includes",
+        "home_includes_sub": "More front-page content so the shop feels complete and client-ready.",
+
+        "home_feature1_title": "Bilingual storefront",
+        "home_feature1_desc": "Language toggle so buyers understand your offer quickly.",
+        "home_feature2_title": "Buyer-ready product cards",
+        "home_feature2_desc": "Short descriptions and pricing, with a clean product detail page.",
+        "home_feature3_title": "Basket + checkout request",
+        "home_feature3_desc": "A simple checkout flow that can be connected to real payments later.",
+        "home_feature4_title": "AI product advisor",
+        "home_feature4_desc": "Helps buyers pick a small bundle based on their use case.",
+        "home_note_under_features": "This is a demo: replace policies, freight terms, and payment options with your real setup.",
+
+        "home_steps_kicker": "Demo checkout",
+        "home_steps_title": "How ordering works (demo flow)",
+        "home_step1_title": "Choose products",
+        "home_step1_desc": "Browse items, open details, and add quantities to the basket.",
+        "home_step2_title": "Submit request",
+        "home_step2_desc": "Checkout collects contact details and shipping address (demo).",
+        "home_step3_title": "Confirm terms",
+        "home_step3_desc": "In a real store: confirm MOQ, lead time, freight, and payment method.",
+        "home_step4_title": "Ship & support",
+        "home_step4_desc": "Share tracking and provide after-sales support.",
+
+        "home_service_kicker": "Export operations",
+        "home_service_title": "Export-friendly service notes",
+        "home_service_sub": "Common details exporters add to improve buyer confidence.",
+        "home_service_b1": "Show MOQ, lead time, and key specs per SKU.",
+        "home_service_b2": "Add shipping terms (EXW/FOB/CIF) and packaging options.",
+        "home_service_b3": "Integrate payment options (bank transfer, PayPal, Stripe, local payment).",
+        "home_service_b4": "Add compliance documents, warranty, and return policy pages if needed.",
+
+        "home_featured_kicker": "Quick selection",
+        "home_featured_title": "Featured picks",
+        "home_featured_link": "View all",
+
+        "home_all_kicker": "Full catalog",
+        "home_all_title": "All demo products",
+        "home_all_hint": "Use Details to see the full description.",
+
+        "home_social_kicker": "Social proof",
+        "home_social_title": "What buyers like about this layout",
+        "home_social_label1": "International buyer",
+        "home_social_quote1": "Clean layout—easy to understand key benefits quickly.",
+        "home_social_meta1": "Demo feedback",
+        "home_social_label2": "Purchasing",
+        "home_social_quote2": "I can shortlist items fast and submit a clear request.",
+        "home_social_meta2": "Demo feedback",
+        "home_social_label3": "Distributor",
+        "home_social_quote3": "Bilingual pages reduce back-and-forth and speed up decisions.",
+        "home_social_meta3": "Demo feedback",
+
+        "home_faq_kicker": "Questions",
+        "home_faq_title": "FAQ",
+        "home_faq_q1": "Can I replace the demo products with my own?",
+        "home_faq_a1": "Yes. Update the product list (or connect a database) and replace images in static/img.",
+        "home_faq_q2": "Is this a real checkout?",
+        "home_faq_a2": "Not in the demo. It submits an order request only. Payment and order storage can be added.",
+        "home_faq_q3": "Can you add categories, search, and filters?",
+        "home_faq_a3": "Yes. Add tags/collections and a search bar; connect a database for large catalogs.",
+        "home_faq_q4": "Can I disable the AI advisor?",
+        "home_faq_a4": "Yes. Turn off ENABLE_AI_ADVISOR in app.py (and hide the card if you want).",
+
+        "home_cta2_kicker": "Next step",
+        "home_cta2_title": "Want this store for your business?",
+        "home_cta2_desc": "Branding, product import, payment integration, and deployment can be built on top of this demo.",
+        "home_cta2_btn": "Browse products",
+
         # Product detail
         "product_qty_label": "Quantity",
         "product_add_btn": "Add to basket",
@@ -140,6 +232,98 @@ TEXTS = {
         "home_tagline": "面向出口业务的在线商店示例，带购物篮和账户页面。",
         "home_btn_details": "详情",
         "home_btn_add": "加入",
+
+        # 首页内容扩展（让首页信息更完整）
+        "home_hero_kicker": "B2B / 外贸出海商城模板",
+        "home_hero_title": "出口示例商城",
+        "home_hero_sub": "双语、买家友好的示例商店，用于展示产品如何面向海外客户呈现。",
+        "home_cta_browse": "浏览产品",
+        "home_cta_ai": "询问 AI 推荐",
+        "home_cta_cart": "查看购物篮",
+        "home_badge_mobile": "移动端友好",
+        "home_badge_bilingual": "中英双语",
+        "home_badge_export": "适合外贸",
+        "home_badge_demo": "演示",
+
+        "home_quick_title": "快速概览",
+        "home_quick_sub": "买家第一眼最关心的亮点。",
+        "home_quick_item1_title": "清晰展示",
+        "home_quick_item1_desc": "图片、要点、价格一目了然。",
+        "home_quick_item2_title": "购物篮流程",
+        "home_quick_item2_desc": "加入、修改数量、提交询盘/订单请求。",
+        "home_quick_item3_title": "账户页面",
+        "home_quick_item3_desc": "演示登录与订单记录占位。",
+        "home_quick_item4_title": "AI 推荐（可选）",
+        "home_quick_item4_desc": "根据需求从目录中推荐 2–3 款。",
+
+        "home_includes_kicker": "首页内容",
+        "home_includes_title": "本示例包含什么",
+        "home_includes_sub": "增加首页信息量，让示例更像真实可用的商城。",
+
+        "home_feature1_title": "双语店铺",
+        "home_feature1_desc": "支持中英切换，减少沟通成本。",
+        "home_feature2_title": "买家友好展示",
+        "home_feature2_desc": "简洁卡片 + 详情页，便于快速了解产品。",
+        "home_feature3_title": "购物篮 + 结算请求",
+        "home_feature3_desc": "演示版结算流程，后续可对接真实支付。",
+        "home_feature4_title": "AI 商品推荐",
+        "home_feature4_desc": "根据场景建议一个小组合，帮助买家下决策。",
+        "home_note_under_features": "本项目为演示：请将运费条款、支付方式与政策说明替换为您的真实信息。",
+
+        "home_steps_kicker": "演示结算",
+        "home_steps_title": "下单流程（示例）",
+        "home_step1_title": "选择产品",
+        "home_step1_desc": "浏览产品、查看详情并加入购物篮。",
+        "home_step2_title": "提交请求",
+        "home_step2_desc": "结算页收集联系信息与收货地址（演示）。",
+        "home_step3_title": "确认条款",
+        "home_step3_desc": "真实项目中：确认 MOQ、交期、运费与支付方式。",
+        "home_step4_title": "发货售后",
+        "home_step4_desc": "提供追踪号并进行售后支持。",
+
+        "home_service_kicker": "外贸运营",
+        "home_service_title": "外贸友好提示",
+        "home_service_sub": "常见让买家更放心的展示信息。",
+        "home_service_b1": "每个 SKU 可展示 MOQ、交期与关键参数。",
+        "home_service_b2": "可增加 EXW/FOB/CIF 等贸易条款与包装选项。",
+        "home_service_b3": "可对接银行转账、PayPal、Stripe、... 等支付。",
+        "home_service_b4": "按需增加合规文件、保修与退换货政策页面。",
+
+        "home_featured_kicker": "快速挑选",
+        "home_featured_title": "精选示例",
+        "home_featured_link": "查看全部",
+
+        "home_all_kicker": "产品目录",
+        "home_all_title": "全部示例产品",
+        "home_all_hint": "点击“详情”查看更多描述。",
+
+        "home_social_kicker": "口碑展示",
+        "home_social_title": "买家喜欢的地方",
+        "home_social_label1": "海外买家",
+        "home_social_quote1": "页面干净，产品要点很快就能看明白。",
+        "home_social_meta1": "演示反馈",
+        "home_social_label2": "采购",
+        "home_social_quote2": "快速筛选并提交清晰的请求，非常方便。",
+        "home_social_meta2": "演示反馈",
+        "home_social_label3": "渠道商",
+        "home_social_quote3": "双语信息减少来回确认，决策更快。",
+        "home_social_meta3": "演示反馈",
+
+        "home_faq_kicker": "常见问题",
+        "home_faq_title": "FAQ",
+        "home_faq_q1": "可以把示例产品替换为我的产品吗？",
+        "home_faq_a1": "可以。更新产品列表（或连接数据库），并替换 static/img 里的图片即可。",
+        "home_faq_q2": "这是真实支付结算吗？",
+        "home_faq_a2": "演示版仅提交订单请求。真实支付与订单保存可在项目中实现。",
+        "home_faq_q3": "能加分类、搜索和筛选吗？",
+        "home_faq_a3": "可以。增加标签/分类与搜索栏；目录较大时建议接入数据库。",
+        "home_faq_q4": "可以关闭 AI 推荐吗？",
+        "home_faq_a4": "可以。在 app.py 里关闭 ENABLE_AI_ADVISOR（并按需隐藏卡片）。",
+
+        "home_cta2_kicker": "下一步",
+        "home_cta2_title": "想把它变成你的正式商城？",
+        "home_cta2_desc": "在此示例基础上，可定制品牌、导入产品、对接支付并部署上线。",
+        "home_cta2_btn": "浏览产品",
 
         # Product detail
         "product_qty_label": "数量",
@@ -275,6 +459,158 @@ PRODUCTS = [
             "可作为家居 / 办公产品示例。"
         ),
         "image": "prod_lamp.jpg"
+    },
+    {
+        "id": 4,
+        "slug": "fast-charge-power-bank-20000",
+        "name": "Fast-Charge Power Bank 20,000mAh",
+        "name_zh": "20,000mAh 快充移动电源",
+        "price": 29.90,
+        "currency": "USD",
+        "short": "High-capacity power bank with fast charging support.",
+        "short_zh": "大容量移动电源，支持快充。",
+        "description": (
+            "A 20,000mAh power bank with fast-charging support, dual output ports, "
+            "and a compact form factor. Ideal demo item for electronics accessory listings."
+        ),
+        "description_zh": (
+            "20,000mAh 大容量移动电源，支持快充，双输出接口，体积紧凑便携。"
+            "适合用于展示数码配件类商品。"
+        ),
+        "image": "prod_powerbank.jpg"
+    },
+    {
+        "id": 5,
+        "slug": "smart-speaker-mini",
+        "name": "Smart Speaker Mini",
+        "name_zh": "智能音箱 Mini",
+        "price": 34.90,
+        "currency": "USD",
+        "short": "Compact speaker with clear sound and voice assistant support.",
+        "short_zh": "小巧音箱，音质清晰，支持语音助手。",
+        "description": (
+            "A compact smart speaker with clear vocals, room-filling sound, and simple setup. "
+            "Useful as a demo product for smart home and audio categories."
+        ),
+        "description_zh": (
+            "小巧智能音箱，人声清晰，覆盖空间更广，安装设置简单。"
+            "适合作为智能家居与音频类产品展示示例。"
+        ),
+        "image": "prod_speaker.jpg"
+    },
+    {
+        "id": 6,
+        "slug": "stainless-steel-water-bottle",
+        "name": "Stainless Steel Water Bottle 750ml",
+        "name_zh": "750ml 不锈钢保温水瓶",
+        "price": 18.90,
+        "currency": "USD",
+        "short": "Insulated bottle that keeps drinks hot or cold for hours.",
+        "short_zh": "保温保冷多小时的不锈钢水瓶。",
+        "description": (
+            "A 750ml stainless steel insulated bottle with leak-proof lid and easy-carry handle. "
+            "A strong demo item for outdoor, fitness, and everyday essentials."
+        ),
+        "description_zh": (
+            "750ml 不锈钢保温水瓶，防漏瓶盖，便携提手设计。"
+            "适合用于展示户外、健身与日用必需品类商品。"
+        ),
+        "image": "prod_bottle.jpg"
+    },
+    {
+        "id": 7,
+        "slug": "eco-yoga-mat",
+        "name": "Eco Yoga Mat",
+        "name_zh": "环保防滑瑜伽垫",
+        "price": 21.90,
+        "currency": "USD",
+        "short": "Non-slip yoga mat with comfortable cushioning.",
+        "short_zh": "防滑瑜伽垫，回弹舒适。",
+        "description": (
+            "An eco-friendly yoga mat with textured grip, comfortable thickness, "
+            "and easy-roll design. Great for showcasing sports and wellness products."
+        ),
+        "description_zh": (
+            "环保材质瑜伽垫，纹理防滑抓地力强，厚度舒适，易卷收纳。"
+            "适合展示运动与健康类产品。"
+        ),
+        "image": "prod_yoga_mat.jpg"
+    },
+    {
+        "id": 8,
+        "slug": "electric-toothbrush-s2",
+        "name": "Electric Toothbrush S2",
+        "name_zh": "电动牙刷 S2",
+        "price": 27.90,
+        "currency": "USD",
+        "short": "Multi-mode toothbrush with gentle and deep-clean settings.",
+        "short_zh": "多模式清洁，兼顾温和与深度护理。",
+        "description": (
+            "An electric toothbrush with multiple cleaning modes, timer guidance, "
+            "and a sleek charging base. A clean demo item for personal care categories."
+        ),
+        "description_zh": (
+            "多模式电动牙刷，带计时提醒与引导，配套充电底座，外观简洁。"
+            "适合作为个护类商品的展示示例。"
+        ),
+        "image": "prod_toothbrush.jpg"
+    },
+    {
+        "id": 9,
+        "slug": "mechanical-keyboard-tkl",
+        "name": "Mechanical Keyboard TKL",
+        "name_zh": "机械键盘 TKL",
+        "price": 49.90,
+        "currency": "USD",
+        "short": "Compact mechanical keyboard with satisfying tactile feel.",
+        "short_zh": "紧凑布局，手感清脆舒适。",
+        "description": (
+            "A tenkeyless mechanical keyboard designed for productivity and gaming, "
+            "with durable keycaps and responsive switches. Ideal for showcasing PC accessories."
+        ),
+        "description_zh": (
+            "87 键紧凑机械键盘，兼顾办公与游戏体验，键帽耐用，触发响应灵敏。"
+            "适合用于展示电脑外设类产品。"
+        ),
+        "image": "prod_keyboard.jpg"
+    },
+    {
+        "id": 10,
+        "slug": "portable-blender-go",
+        "name": "Portable Blender Go",
+        "name_zh": "便携随行搅拌杯",
+        "price": 32.90,
+        "currency": "USD",
+        "short": "Portable blender for smoothies at home or on the go.",
+        "short_zh": "随行搅拌杯，轻松做果昔与奶昔。",
+        "description": (
+            "A portable blender with rechargeable battery, easy-clean cup design, "
+            "and strong blending performance for smoothies. Great demo item for kitchen gadgets."
+        ),
+        "description_zh": (
+            "充电式便携搅拌杯，杯体易清洗，搅拌动力充足，适合制作果昔饮品。"
+            "适合作为厨房小电器类产品的示例。"
+        ),
+        "image": "prod_blender.jpg"
+    },
+    {
+        "id": 11,
+        "slug": "universal-travel-adapter",
+        "name": "Universal Travel Adapter",
+        "name_zh": "全球通用旅行转换插头",
+        "price": 19.90,
+        "currency": "USD",
+        "short": "All-in-one travel adapter for multiple plug standards.",
+        "short_zh": "一体式旅行转换插头，覆盖多国插头标准。",
+        "description": (
+            "An all-in-one travel adapter covering multiple plug standards, "
+            "with compact design and built-in safety features. Ideal for showcasing travel essentials."
+        ),
+        "description_zh": (
+            "一体式旅行转换插头，覆盖多国插头标准，体积小巧，具备安全防护设计。"
+            "适合作为出行必备类产品的展示示例。"
+        ),
+        "image": "prod_travel_adapter.jpg"
     },
 ]
 
